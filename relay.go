@@ -17,6 +17,8 @@ func run(a, b net.Conn) {
 	defer b.Close()
 
 	go func() {
+		defer a.Close()
+		defer b.Close()
 		var buf [2048]byte
 		for {
 			n, err := io.CopyBuffer(a, b, buf[:])
