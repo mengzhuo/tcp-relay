@@ -10,6 +10,7 @@ import (
 var (
 	listenAddr = flag.String("l", ":5001", "listen address")
 	remoteAddr = flag.String("r", "10.0.0.10:5001", "remote address")
+	verbose    = flag.Bool("v", false, "verbose on link")
 )
 
 func run(a, b net.Conn) {
@@ -40,7 +41,9 @@ func run(a, b net.Conn) {
 func main() {
 	flag.Parse()
 
-	log.Println("linking: " + *listenAddr + " -> " + *remoteAddr)
+	if *verbose {
+		log.Println("linking: " + *listenAddr + " -> " + *remoteAddr)
+	}
 	ln, err := net.Listen("tcp", *listenAddr)
 	if err != nil {
 		log.Fatal(err)
@@ -52,7 +55,9 @@ func main() {
 			log.Print(err)
 			continue
 		}
-		log.Println("Accepted", lss.RemoteAddr())
+		if *verbose {
+			log.Println("Accepted", lss.RemoteAddr())
+		}
 		conn, err := net.Dial("tcp", *remoteAddr)
 		if err != nil {
 			log.Print(err)
