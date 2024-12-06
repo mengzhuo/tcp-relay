@@ -1,9 +1,18 @@
 # tcprelay
-TCP relayer
+TCP relayer, listen and replay
+
+## Install
+```
+go install github.com/mengzhuo/tcprelay@latest
+```
 
 ## Usage
 
 ```
-go install github.com/mengzhuo/tcprelay@v1.0.0
-tcprelay
+Usage of tcprelay:
+  -l string
+        listen address (default ":5001")
+  -r string
+        remote address (default "10.0.0.10:5001")
+  -v    verbose on link
 ```
